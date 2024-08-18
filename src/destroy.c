@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paradari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ykai-yua <ykai-yua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/28 17:55:18 by paradari          #+#    #+#             */
-/*   Updated: 2024/07/28 17:55:20 by paradari         ###   ########.fr       */
+/*   Created: 2024/08/18 22:34:32 by ykai-yua          #+#    #+#             */
+/*   Updated: 2024/08/19 01:39:41 by ykai-yua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@ void	ft_clear_img(t_data *data)
 		mlx_destroy_image(data->mlx, data->player_1);
 	if (data->player_2)
 		mlx_destroy_image(data->mlx, data->player_2);
-	if (data->player_4)
-		mlx_destroy_image(data->mlx, data->player_3);
-	if (data->player_4)
-		mlx_destroy_image(data->mlx, data->player_4);
 	if (data->exit_locked)
 		mlx_destroy_image(data->mlx, data->exit_locked);
 	if (data->exit_unlocked)

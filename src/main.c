@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paradari <paradari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ykai-yua <ykai-yua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/26 16:52:19 by paradari          #+#    #+#             */
-/*   Updated: 2024/07/28 13:59:35 by paradari         ###   ########.fr       */
+/*   Created: 2024/08/18 22:35:29 by ykai-yua          #+#    #+#             */
+/*   Updated: 2024/08/19 02:05:54 by ykai-yua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	ft_check_input(char *av, int ac)
 	len = 0;
 	if (ac != 2)
 	{
-		ft_putstr_fd("Input must be ./program_name map.ber!!\n", 1);
+		ft_putstr_fd("Bad arguements Eg:./program_name map.ber\n", 1);
 		exit (1);
 	}
 	len = ft_strlen(av);
 	if (file_check(&av[len - 4]))
 	{
-		ft_putstr_fd("Map must be .ber file!!\n", 1);
+		ft_putstr_fd("Map must be .ber file\n", 1);
 		exit (1);
 	}
 }

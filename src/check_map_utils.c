@@ -3,98 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paradari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ykai-yua <ykai-yua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/06 15:57:09 by paradari          #+#    #+#             */
-/*   Updated: 2024/08/06 15:57:13 by paradari         ###   ########.fr       */
+/*   Created: 2024/08/18 21:50:51 by ykai-yua          #+#    #+#             */
+/*   Updated: 2024/08/18 22:31:36 by ykai-yua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_full_fill(t_data *data)
+void	ft_find_player_position(t_data *data, int *x, int *y)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (data->tmp[i])
 	{
 		j = 0;
-		while (data->tmp[i][j] && data->tmp[i][j] != '\n')
+		while (data->tmp[i][j])
 		{
-			if (data->tmp[i][j] != '1' && check_x(data, i, j))
-				data->tmp[i][j] = 'X';
+			if (data->tmp[i][j] == 'P')
+			{
+				*x = j;
+				*y = i;
+				return ;
+			}
 			j++;
 		}
 		i++;
 	}
+	*x = -1;
+	*y = -1;
 }
 
-int	check_x(t_data *data, int y, int x)
+void	ft_flood_fill(t_data *data, int y, int x)
 {
-	if (data->tmp[y - 1][x] == 'X' || data->tmp[y + 1][x] == 'X'
-			|| data->tmp[y][x - 1] == 'X' || data->tmp[y][x + 1] == 'X')
-		return (1);
-	return (0);
+	if (y < 0 || x < 0 || !data->tmp[y]
+		|| data->tmp[y][x] == '1' || data->tmp[y][x] == 'X')
+		return ;
+	data->tmp[y][x] = 'X';
+	ft_flood_fill(data, y - 1, x);
+	ft_flood_fill(data, y + 1, x);
+	ft_flood_fill(data, y, x - 1);
+	ft_flood_fill(data, y, x + 1);
 }
 
-void	fill_horizon(t_data *data, int x, int y)
-{
-	int	i;
-
-	i = 0;
-	while (data->tmp[y][x - i] != '1' && data->tmp[y][x - i])
-	{
-		data->tmp[y][x - i] = 'X';
-		i++;
-	}
-	i = 0;
-	while (data->tmp[y][x + i] != '1' && data->tmp[y][x + i])
-	{
-		data->tmp[y][x + i] = 'X';
-		i++;
-	}
-}
-
-void	fill_vertical(t_data *data, int x, int y)
-{
-	int	i;
-
-	i = 0;
-	while (data->tmp[y - i][x] != '1' && data->tmp[y - i][x])
-	{
-		data->tmp[y - i][x] = 'X';
-		if (data->tmp[y - i][x - 1] != '1')
-			fill_horizon(data, x - 1, y - i);
-		if (data->tmp[y - i][x + 1] != '1')
-			fill_horizon(data, x + 1, y - i);
-		i++;
-	}
-	i = 0;
-	while (data->tmp[y + i][x] != '1' && data->tmp[y + i][x])
-	{
-		data->tmp[y + i][x] = 'X';
-		if (data->tmp[y + i][x - 1] != '1')
-			fill_horizon(data, x - 1, y + i);
-		if (data->tmp[y + i][x + 1] != '1')
-			fill_horizon(data, x + 1, y + i);
-		i++;
-	}
-}
-
-int	ft_check_left(t_data *data)
+int	ft_check_unvisited_elements(t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (data->tmp[i])
 	{
 		j = 0;
-		while (data->tmp[i][j] && data->tmp[i][j] != '\n')
+		while (data->tmp[i][j])
 		{
 			if (data->tmp[i][j] == 'C' || data->tmp[i][j] == 'E')
 				return (1);
@@ -103,4 +67,16 @@ int	ft_check_left(t_data *data)
 		i++;
 	}
 	return (0);
+}
+
+int	ft_is_reachable(t_data *data)
+{
+	int	player_x;
+	int	player_y;
+
+	ft_find_player_position(data, &player_x, &player_y);
+	if (player_x == -1 || player_y == -1)
+		return (1);
+	ft_flood_fill(data, player_y, player_x);
+	return (ft_check_unvisited_elements(data));
 }

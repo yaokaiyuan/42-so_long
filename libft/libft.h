@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paradari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ykai-yua <ykai-yua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 15:12:33 by paradari          #+#    #+#             */
-/*   Updated: 2024/07/29 15:12:36 by paradari         ###   ########.fr       */
+/*   Created: 2024/08/18 22:33:27 by ykai-yua          #+#    #+#             */
+/*   Updated: 2024/08/19 00:36:46 by ykai-yua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,19 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 42
 # endif
 
-void	ft_putstr_fd(char *s, int fd);
+void	ft_putstr_fd(const char *s, int fd);
 char	*ft_itoa(int n);
 
-char	*ft_collect_char(char *current, char *buffer);
-char	*ft_read_line(char *current, int fd);
-char	*ft_collect_line(char *current);
-char	*ft_cut_oldline(char *current);
-char	*get_next_line(int fd);
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strchr(const char *s, int c);
-void	*ft_calloc(size_t n, size_t size);
-void	*ft_memset(void *b, int c, size_t len);
-void	ft_free_two(void *ptr1, void *ptr2);
+char	*get_next_line(int fd);
+size_t	ft_strlen(char *s);
+char	*ft_strjoin(char *s1, char *s2);
+int		ft_clean(char *str);
 
 #endif

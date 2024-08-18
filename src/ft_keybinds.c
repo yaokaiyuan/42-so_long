@@ -3,34 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_keybinds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paradari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ykai-yua <ykai-yua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/28 17:56:06 by paradari          #+#    #+#             */
-/*   Updated: 2024/07/28 17:56:09 by paradari         ###   ########.fr       */
+/*   Created: 2024/08/18 22:34:50 by ykai-yua          #+#    #+#             */
+/*   Updated: 2024/08/19 01:48:51 by ykai-yua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_suit_up(t_data *data)
-{
-	if (data->p_status < 4)
-	{
-		data->p_status++;
-		if (data->p_status == 1)
-			data->player = data->player_2;
-		if (data->p_status == 2)
-			data->player = data->player_3;
-		if (data->p_status == 3)
-			data->player = data->player_4;
-	}
-}
-
 void	ft_check_collect(t_data *data)
 {
 	if (data->collect_counter == data->c_status)
 	{
-		ft_suit_up(data);
+		data->player = data->player_2;
 		data->e_status = 0;
 		data->exit = data->exit_unlocked;
 		mlx_put_image_to_window(data->mlx, data->window, data->exit,

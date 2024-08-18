@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphic.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paradari <paradari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ykai-yua <ykai-yua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/26 16:52:19 by paradari          #+#    #+#             */
-/*   Updated: 2024/07/28 02:53:57 by paradari         ###   ########.fr       */
+/*   Created: 2024/08/18 22:34:58 by ykai-yua          #+#    #+#             */
+/*   Updated: 2024/08/19 01:14:13 by ykai-yua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,15 @@ int	ft_put_graphic(t_data *data)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (data->map[i])
 	{
+		j = 0;
 		while (data->map[i][j] && data->map[i][j] != '\n')
 		{
 			ft_fill(data, i, j);
 			j++;
 		}
 		i++;
-		j = 0;
 	}
 	return (0);
 }

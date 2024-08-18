@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map_utils2.c                                 :+:      :+:    :+:   */
+/*   for_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paradari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ykai-yua <ykai-yua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/06 16:05:10 by paradari          #+#    #+#             */
-/*   Updated: 2024/08/06 16:05:12 by paradari         ###   ########.fr       */
+/*   Created: 2024/08/18 22:34:39 by ykai-yua          #+#    #+#             */
+/*   Updated: 2024/08/18 22:34:42 by ykai-yua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_is_left(t_data *data)
+void	ft_free_map(char **map)
 {
-	int	x;
-	int	y;
+	int	i;
 
-	x = data->pos_x;
-	y = data->pos_y;
-	fill_vertical(data, x, y);
-	ft_full_fill(data);
-	if (ft_check_left(data))
-		return (1);
-	return (0);
+	i = 0;
+	while (map[i])
+		free(map[i++]);
+	free(map);
+	map = NULL;
 }

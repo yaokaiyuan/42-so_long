@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paradari <paradari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ykai-yua <ykai-yua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/26 16:55:28 by paradari          #+#    #+#             */
-/*   Updated: 2024/07/28 02:51:57 by paradari         ###   ########.fr       */
+/*   Created: 2024/08/18 22:35:12 by ykai-yua          #+#    #+#             */
+/*   Updated: 2024/08/19 02:06:29 by ykai-yua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	ft_init_player(t_data *data)
 	int	x;
 	int	y;
 
-	x = 0;
 	y = 0;
 	while (data->map[y])
 	{
+		x = 0;
 		while (data->map[y][x])
 		{
 			if (data->map[y][x] == 'P')
@@ -30,7 +30,6 @@ void	ft_init_player(t_data *data)
 			}
 			x++;
 		}
-		x = 0;
 		y++;
 	}
 }
@@ -39,7 +38,7 @@ void	ft_init_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
 	data->window = mlx_new_window(data->mlx, data->width, data->height,
-			"Game Start\n");
+			"./so_long\n");
 	if (!data->window)
 		free(data->window);
 }
@@ -55,10 +54,6 @@ void	ft_init_image(t_data *data)
 	data->player_1 = mlx_xpm_file_to_image(data->mlx, P1, &data->isize,
 			&data->isize);
 	data->player_2 = mlx_xpm_file_to_image(data->mlx, P2, &data->isize,
-			&data->isize);
-	data->player_3 = mlx_xpm_file_to_image(data->mlx, P3, &data->isize,
-			&data->isize);
-	data->player_4 = mlx_xpm_file_to_image(data->mlx, P4, &data->isize,
 			&data->isize);
 	data->exit_locked = mlx_xpm_file_to_image(data->mlx, EXIT_L, &data->isize,
 			&data->isize);

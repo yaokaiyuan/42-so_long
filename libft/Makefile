@@ -1,31 +1,43 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ykai-yua <ykai-yua@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/08/18 22:33:54 by ykai-yua          #+#    #+#              #
+#    Updated: 2024/08/19 00:47:45 by ykai-yua         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libft.a
 
-HEADER = libft.h
-
 SRCS = ft_putstr_fd.c\
+		ft_strchr.c\
 		get_next_line.c\
 		get_next_line_utils.c\
 		ft_itoa.c
 
-OBJS = $(SRCS:.c=.o)
+OBJS	= $(SRCS:.c=.o)
+RM		= rm -f
+LIBC	= ar -rcs
+FLAGS	= -Wall -Wextra -Werror 
+INCS	= .
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+.c.o :
+	${CC} ${FLAGS} -c $< -o ${<:.c=.o} -I${INCS}
 
-%.o: %.c  libft.h
-	$(CC) $(CFLAGS) -I libft.h -c $< -o $@
+$(NAME): ${OBJS}
+	${LIBC} $(NAME) $(OBJS)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(HEADER)
-		ar -rcs $(NAME) $(OBJS)
+fclean: clean
+	$(RM) $(NAME)
 
 clean:
-		rm -rf $(OBJS)
+	$(RM) -f $(OBJS)
 
-fclean:	clean
-		rm -rf $(NAME)
+re: fclean all
 
-re:		fclean $(NAME)
-
-.PHONY:	all clean fclean re
+.PHONY: all bonus clean fclean re .c.o

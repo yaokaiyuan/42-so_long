@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paradari <paradari@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ykai-yua <ykai-yua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:49:42 by paradari          #+#    #+#             */
-/*   Updated: 2024/07/28 14:11:25 by paradari         ###   ########.fr       */
+/*   Updated: 2024/08/19 02:11:15 by ykai-yua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,18 @@ int	check_valid(t_data *data)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (i < data->line)
 	{
+		j = 0;
 		while (j < data->column)
 		{
 			if (!(ft_strchr("01PCE", data->map[i][j])))
 			{
-				ft_putstr_fd("At least 1 character not \"01PCE\"\n", 1);
+				ft_putstr_fd("At least 1 character not 0/1/P/C/E\n", 1);
 				return (1);
 			}
 			j++;
 		}
-		j = 0;
 		i++;
 	}
 	return (0);
@@ -42,9 +41,9 @@ int	check_missing(t_data *data)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (i < data->line)
 	{
+		j = 0;
 		while (j < data->column)
 		{
 			if (data->map[i][j] == 'P')
@@ -55,7 +54,6 @@ int	check_missing(t_data *data)
 				ft_set_status('E', data, i, j);
 			j++;
 		}
-		j = 0;
 		i++;
 	}
 	if (data->p_status == 0 || data->c_status == 0 || data->e_status == 0)
@@ -70,7 +68,6 @@ int	check_rect(t_data *data)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (i < data->line)
 	{
 		j = 0;
@@ -78,7 +75,7 @@ int	check_rect(t_data *data)
 			j++;
 		if (j != data->column)
 		{
-			ft_putstr_fd("Map Error!!\n", 1);
+			ft_putstr_fd("Map Error\n", 1);
 			return (1);
 		}
 		i++;
@@ -115,22 +112,22 @@ int	ft_check_map(t_data *data)
 		return (1);
 	if (check_missing(data))
 	{
-		ft_putstr_fd("Missing object(s)\n", 1);
+		ft_putstr_fd("Missing P/C/E\n", 1);
 		return (1);
 	}
 	if (data->p_status > 1 || data->e_status > 1)
 	{
-		ft_putstr_fd("Cannot more than 1 P/E!!\n", 1);
+		ft_putstr_fd("More than 1 P/E\n", 1);
 		return (1);
 	}
 	if (check_wall(data))
 	{
-		ft_putstr_fd("Map must surround by wall!!\n", 1);
+		ft_putstr_fd("Not surrounded by wall\n", 1);
 		return (1);
 	}
-	if (ft_is_left(data))
+	if (ft_is_reachable(data))
 	{
-		ft_putstr_fd("Can't exit/collect all items\n", 1);
+		ft_putstr_fd("Unreachable C/E\n", 1);
 		return (1);
 	}
 	return (0);

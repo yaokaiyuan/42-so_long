@@ -3,94 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paradari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ykai-yua <ykai-yua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 15:36:05 by paradari          #+#    #+#             */
-/*   Updated: 2023/12/13 15:36:07 by paradari         ###   ########.fr       */
+/*   Created: 2024/08/18 22:33:10 by ykai-yua          #+#    #+#             */
+/*   Updated: 2024/08/19 00:21:28 by ykai-yua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(char *s)
 {
-	size_t	size;
+	size_t	i;
 
-	size = 0;
-	while (*s)
-	{
-		size++;
-		s++;
-	}
-	return (size);
+	i = 0;
+	while (s && s[i] && s[i] != '\n')
+		i++;
+	if (s && s[i] == '\n')
+		i++;
+	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;
 	int		i;
 	int		j;
-	size_t	len;
 
-	len = ft_strlen(s1) + ft_strlen(s2);
-	str = malloc(sizeof(char) * (len + 1));
-	if (!str || !s1 || !s2)
-		return (NULL);
+	if (s2[0] == '\0')
+		return (0);
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (0);
 	i = 0;
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		str[i] = s1[i];
 		i++;
 	}
 	j = 0;
-	while (s2[j])
-	{
-		str[i] = s2[j];
-		i++;
-		j++;
-	}
-	str[i] = 0;
-	i = 0;
+	while (s2 && s2[j] && s2[j] != '\n')
+		str[i++] = s2[j++];
+	if (s2[j] == '\n')
+		str[i++] = '\n';
+	str[i] = '\0';
+	if (s1)
+		free(s1);
 	return (str);
 }
 
-int	ft_strchr(const char *s, int c)
+int	ft_clean(char *str)
 {
 	int	i;
+	int	j;
+	int	is_nl;
 
 	i = 0;
-	while (s[i])
+	j = 0;
+	is_nl = 0;
+	while (str[i])
 	{
-		if ((s[i] == (char)c))
-			return (1);
-		i++;
+		if (is_nl)
+			str[j++] = str[i];
+		if (str[i] == '\n')
+			is_nl = 1;
+		str[i++] = '\0';
 	}
-	if (s[i] == (char)c)
-		return (1);
-	return (0);
-}
-
-void	*ft_calloc(size_t n, size_t size)
-{
-	void			*mem;
-	size_t			i;
-	unsigned char	*str;
-
-	mem = malloc(n * size);
-	if (!mem)
-		return (NULL);
-	str = mem;
-	i = 0;
-	while (i < (n * size))
-	{
-		str[i] = 0;
-		i++;
-	}
-	return (mem);
-}
-
-void	ft_free_two(void *ptr1, void *ptr2)
-{
-	free(ptr1);
-	free(ptr2);
+	return (is_nl);
 }
